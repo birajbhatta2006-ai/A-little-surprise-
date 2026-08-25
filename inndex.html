@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Do You Love Me? ❤️</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffd4df, #ffe8ee, #ffc5d3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 450px;
+      min-height: 520px;
+      background: rgba(255, 255, 255, 0.78);
+      border-radius: 30px;
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(255, 70, 120, 0.25);
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .cat {
+      font-size: 95px;
+      margin-bottom: 15px;
+      animation: bounce 1.8s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    h1 {
+      font-size: 30px;
+      color: #222;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+    }
+
+    button {
+      border: none;
+      padding: 15px 30px;
+      border-radius: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    #yesBtn {
+      background: #ff477e;
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 71, 126, 0.35);
+    }
+
+    #noBtn {
+      background: white;
+      color: #333;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    #message {
+      display: none;
+      font-size: 27px;
+      color: #ff3366;
+      font-weight: bold;
+      line-height: 1.5;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      from {
+        transform: scale(0);
+      }
+
+      to {
+        transform: scale(1);
+      }
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -50px;
+      pointer-events: none;
+      animation: fly 4s linear forwards;
+    }
+
+    @keyframes fly {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div class="cat" id="cat">
+      🐱💗
+    </div>
+
+    <h1 id="question">
+      Yunisha, do you love me? 🥺❤️
+    </h1>
+
+    <p class="subtitle" id="subtitle">
+      Choose carefully 😌
+    </p>
+
+    <div class="buttons" id="buttons">
+
+      <button id="yesBtn">
+        YES ❤️
+      </button>
+
+      <button id="noBtn">
+        NO 😏
+      </button>
+
+    </div>
+
+    <div id="message">
+      I knew it! 😭❤️
+      <br><br>
+      You just made me the happiest person. 🥰
+      <br><br>
+      ❤️ Forever yours ❤️
+    </div>
+
+  </div>
+
+  <script>
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    const question = document.getElementById("question");
+    const subtitle = document.getElementById("subtitle");
+
+    const buttons = document.getElementById("buttons");
+    const message = document.getElementById("message");
+    const cat = document.getElementById("cat");
+
+    let noCount = 0;
+
+    const messages = [
+      "Are you sure? 🥺",
+      "Think again 😭",
+      "Really? 😢",
+      "Wrong button 😂",
+      "Try again 😏",
+      "You can't escape 😌❤️",
+      "Pleaseee 🥺👉👈",
+      "My heart will break 💔",
+      "Last chance 😭",
+      "Just press YES 😂❤️"
+    ];
+
+    function moveNoButton() {
+
+      noCount++;
+
+      question.innerText =
+        messages[
+          Math.min(noCount - 1, messages.length - 1)
+        ];
+
+      const scale =
+        1 + noCount * 0.12;
+
+      yesBtn.style.transform =
+        `scale(${scale})`;
+
+      noBtn.style.position = "fixed";
+
+      const maxX =
+        window.innerWidth - noBtn.offsetWidth - 20;
+
+      const maxY =
+        window.innerHeight - noBtn.offsetHeight - 20;
+
+      const randomX =
+        Math.random() * maxX;
+
+      const randomY =
+        Math.random() * maxY;
+
+      noBtn.style.left =
+        randomX + "px";
+
+      noBtn.style.top =
+        randomY + "px";
+
+      const noTexts = [
+        "No 😏",
+        "Nope 😂",
+        "Really? 🥺",
+        "Think Again",
+        "Wrong 😂",
+        "Catch Me 😜"
+      ];
+
+      noBtn.innerText =
+        noTexts[
+          Math.floor(Math.random() * noTexts.length)
+        ];
+
+    }
+
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    noBtn.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    noBtn.addEventListener("click", moveNoButton);
+
+    yesBtn.addEventListener("click", function() {
+
+      question.style.display = "none";
+      subtitle.style.display = "none";
+      buttons.style.display = "none";
+
+      cat.innerText = "🥰💖";
+
+      message.style.display = "block";
+
+      for (let i = 0; i < 70; i++) {
+
+        setTimeout(createHeart, i * 50);
+
+      }
+
+    });
+
+    function createHeart() {
+
+      const heart =
+        document.createElement("div");
+
+      heart.classList.add("heart");
+
+      const hearts = [
+        "❤️",
+        "💖",
+        "💕",
+        "💗",
+        "💘",
+        "💞",
+        "🌹"
+      ];
+
+      heart.innerText =
+        hearts[
+          Math.floor(Math.random() * hearts.length)
+        ];
+
+      heart.style.left =
+        Math.random() * 100 + "vw";
+
+      heart.style.fontSize =
+        Math.random() * 25 + 20 + "px";
+
+      heart.style.animationDuration =
+        Math.random() * 2 + 3 + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+
+    }
+
+  </script>
+
+</body>
+</html>
